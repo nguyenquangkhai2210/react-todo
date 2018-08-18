@@ -7,17 +7,17 @@ export const getTaskList = async () => {
     return result.data.tasks;
 }
 
-export const createTask = async (value) => {
+export const createTaskList = async (value) => {
     const result = await axios.post(API_URL, {value});
     return result.data;
 }
 
-export const deleteTask = async (task_id) => {
+export const deleteTaskList = async (task_id) => {
     const result = await axios.delete(API_URL + task_id);
     return result.data;
 }
 
-export const updateTask = async (task) => {
+export const updateTaskList = async (task) => {
     const result = await axios.patch(API_URL + task._id, {isCompleted: !task.isCompleted});
     return result.data;
 }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
+
+import { createTask } from './actions';
+
 
 const SubmitButton = styled.button`
     padding: ${props => props.small ? '0px' : '20px'};
@@ -18,8 +22,8 @@ class CreateForm extends Component {
   }
 
   handleSubmit = event => {
+    this.props.createTask(this.state.value);
     event.preventDefault();
-    this.props.onSubmit(this.state.value);
     this.setState({ value: '' });
   }
 
@@ -38,4 +42,12 @@ class CreateForm extends Component {
   }
 }
 
-export default CreateForm;
+const mapStateToProps = null;
+
+const mapDispatchToProps = {
+  createTask,
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateForm);
