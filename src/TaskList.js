@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import { getTask, deleteTask, updateTask } from './actions';
 
-// const RemoveButton = styled.button`
-//   color: red;
-//   font-size: ${props => props.small ? '10px' : '20px'};
-// `;
-
 class TaskList extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.getTask();
   }
 
@@ -18,7 +22,7 @@ class TaskList extends Component {
     this.props.deleteTask(task_id);
   }
 
-  handleToggleComplete = (task) => {
+  handleToggle = (task) => {
     this.props.updateTask(task);
   }
 
@@ -31,22 +35,34 @@ class TaskList extends Component {
       : data
 
     if (this.props.fetching)
-      return (<p>Loading...</p>)
+      return (<CircularProgress thickness={7}/>)
+      
 
     return (
-      <ul>
-        {data.map((task) => (
-          <li key={task._id}>
-            <input
-              type='checkbox'
-              checked={task.isCompleted}
-              onChange={() => this.handleToggleComplete(task)}
-            />
-            {task.value}
-            <button onClick={() => this.handleRemove(task._id)}>X</button>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <List>
+          {data.map((task) => (
+            <ListItem
+              key={task._id}
+              role={undefined}
+              dense
+              button
+              onClick={() => this.handleToggle(task)}
+            >
+              <Checkbox
+                checked={task.isCompleted}
+                onChange={() => this.handleToggle(task)}
+              />
+              <ListItemText primary={task.value} />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Comments" onClick={() => this.handleRemove(task._id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     )
   }
 }

@@ -44,7 +44,6 @@ export function deleteTask(task_id) {
         dispatch(deleteTaskRequest());
         try {
             const data = await deleteTaskList(task_id);
-            console.log(data);
             dispatch(deleteTaskSuccess(data));
         } catch (error) {
             dispatch(deleteTaskFailure(error));
@@ -62,7 +61,6 @@ export function updateTask(task_id) {
         dispatch(updateTaskRequest());
         try {
             const data = await updateTaskList(task_id);
-            console.log(data);
             dispatch(updateTaskSuccess(data));
         } catch (error) {
             dispatch(updateTaskFailure(error));
@@ -83,7 +81,6 @@ export function searchTask(searchValue, showUncompletedOnly) {
                 searchValue: searchValue,
                 showUncompletedOnly: showUncompletedOnly,
             };
-            console.log(dataFilter);
             dispatch(filterTaskSuccess(dataFilter));
         } catch (error) {
             dispatch(filterTaskFailure(error));

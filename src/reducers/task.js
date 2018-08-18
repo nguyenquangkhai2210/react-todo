@@ -37,13 +37,13 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 taskList: [...state.taskList, action.payload],
-                fetching: false,
+                ferching: false,
             }
         case 'CREATE_TASK_FAILURE':
             return {
                 ...state,
                 error: action.payload,
-                fetching: false,
+                ferching: false,
             }
 
         case 'DELETE_TASK_REQUEST':
@@ -87,7 +87,6 @@ export default (state = INITIAL_STATE, action) => {
         case 'FILTER_TASK_REQUEST':
             return {
                 ...state,
-                fetching: true,
                 error: null,
             }
         case 'FILTER_TASK_SUCCESS':
@@ -95,13 +94,11 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 searchValue: action.payload.searchValue,
                 showUncompletedOnly: action.payload.showUncompletedOnly,
-                fetching: false,
             }
         case 'FILTER_TASK_FAILURE':
             return {
                 ...state,
                 error: action.payload,
-                fetching: false,
             }
 
         default:

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { searchTask } from './actions';
 
@@ -20,7 +23,7 @@ class FilterControl extends Component {
   }
 
   handleToggleFilter = () => {
-    this.props.searchTask(this.state.searchValue ,!this.state.showUncompletedOnly);
+    this.props.searchTask(this.state.searchValue, !this.state.showUncompletedOnly);
     this.setState({
       showUncompletedOnly: !this.state.showUncompletedOnly,
     })
@@ -29,13 +32,24 @@ class FilterControl extends Component {
   render() {
     return (
       <div>
-        <input
+        <TextField
           value={this.state.searchValue}
-          placeholder='Search something...'
+          label='Search something...'
+          placeholder="Something..."
+          margin="normal"
           onChange={(event) => this.handleSearchChange(event)}
         />
         <br />
-        <input type='checkbox' checked={this.state.showUncompletedOnly} onChange={this.handleToggleFilter} /> Show only uncompleted task
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.showUncompletedOnly}
+              onChange={this.handleToggleFilter}
+              color="primary"
+            />
+          }
+          label="Show only uncompleted task"
+        />
       </div>
     );
   }

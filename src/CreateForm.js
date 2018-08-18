@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { createTask } from './actions';
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const SubmitButton = styled.button`
     padding: ${props => props.small ? '0px' : '20px'};
@@ -22,21 +24,24 @@ class CreateForm extends Component {
   }
 
   handleSubmit = event => {
-    this.props.createTask(this.state.value);
     event.preventDefault();
+    this.props.createTask(this.state.value);
     this.setState({ value: '' });
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          placeholder='Something todo...'
+        <TextField
+          label='Something todo...'
+          placeholder="Something..."
+          margin="normal"
           value={this.state.value}
           onChange={this.handleInputChange}
         />
-        <SubmitButton small >OK</SubmitButton>
+        <Button variant="contained" color="primary" onClick={(ev) => this.handleSubmit(ev)}>
+          Add
+        </Button>
       </form>
     )
   }
